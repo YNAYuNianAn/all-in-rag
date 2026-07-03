@@ -2,19 +2,19 @@ import torch
 from visual_bge.visual_bge.modeling import Visualized_BGE
 
 model = Visualized_BGE(
-    model_name = "BAAI/bge-base-en-v1.5", #文本嵌入模型底座
+    model_name_bge = "BAAI/bge-base-en-v1.5", #文本嵌入模型底座
     model_weight="../../models/bge/Visualized_base_en_v1.5.pth" #视觉权重
 )
 
 model.eval() #评估模式
 
 with torch.no_grad():
-    tex_emb = model.encode(text="datawhale开源组织的logo") #仅文本嵌入
+    tex_emb = model.encode(text="blue whale") #仅文本嵌入
     img_emb_1 = model.encode(image="../../data/C3/imgs/datawhale01.png") #仅图片嵌入
     #图片和文本混合嵌入
-    multi_emb_1 = model.encode(image="../../data/C3/imgs/datawhale01.png", text="datawhale开源组织的logo")
+    multi_emb_1 = model.encode(image="../../data/C3/imgs/datawhale01.png", text="blue whale")
     img_emb_2 = model.encode(image="../../data/C3/imgs/datawhale02.png")
-    multi_emb_2 = model.encode(image="../../data/C3/imgs/datawhale02.png", text="datawhale开源组织的logo")
+    multi_emb_2 = model.encode(image="../../data/C3/imgs/datawhale02.png", text="blue whale")
 
 # 计算相似度
 sim_1 = img_emb_1 @ img_emb_2.T
